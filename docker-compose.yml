@@ -1,0 +1,34 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: explorematogrosso-app
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www/html
+    working_dir: /var/www/html/public
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=
+
+    restart: always  # Reinicia automaticamente em caso de falha
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.0
+    container_name: explorematogrosso-db
+    restart: always
+    ports:
+      - "3310:3306"
+    environment:
+        MYSQL_ROOT_PASSWORD: ""
+        MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      
+volumes:
+  mysql_data:
