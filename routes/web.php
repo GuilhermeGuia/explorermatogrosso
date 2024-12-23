@@ -6,6 +6,7 @@ use App\Http\Controllers\ServicePagesController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/cachorro', [SiteController::class,'index'])->name('index');
 
 Route::get('/', [SiteController::class,'index'])->name('index');
 
